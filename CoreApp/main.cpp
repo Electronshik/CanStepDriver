@@ -1,7 +1,7 @@
 #include "main.hpp"
-#include "ll_main.h"
+#include "main.h"
 
 int main(void)
 {
-	ll_main();
+	ll_init();
 }
