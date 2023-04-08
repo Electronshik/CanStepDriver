@@ -15,6 +15,9 @@ Hardware/DeviceSheets/History
 Hardware/DeviceSheets/__Previews
 Hardware/DeviceSheets/*.LOG
 
+LowLevel/CanStepDriverPowerstep/build
+LowLevel/CanStepDriverMosfets/build
+
 # User-specific uVision files
 *.opt
 *.uvopt
