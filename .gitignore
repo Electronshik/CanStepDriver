@@ -3,9 +3,17 @@
 
 *.bat
 
-CanStepDriverPowerstep/History
-CanStepDriverPowerstep/__Previews
-CanStepDriverPowerstep/Project Logs for CanStepDriverPowerstep
+Hardware/CanStepDriverPowerstep/History
+Hardware/CanStepDriverPowerstep/__Previews
+Hardware/CanStepDriverPowerstep/Project Logs for CanStepDriverPowerstep
+
+Hardware/CanStepDriverMosfets/History
+Hardware/CanStepDriverMosfets/__Previews
+Hardware/CanStepDriverMosfets/Project Logs for CanStepDriverMosfets
+
+Hardware/DeviceSheets/History
+Hardware/DeviceSheets/__Previews
+Hardware/DeviceSheets/*.LOG
 
 # User-specific uVision files
 *.opt

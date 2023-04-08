@@ -1,0 +1,4 @@
+Record=TopLevelDocument|FileName=00 - Structure.SchDoc|SheetNumber=1
+Record=SheetSymbol|SourceDocument=00 - Structure.SchDoc|Designator=U_01 - MCU|SchDesignator=U_01 - MCU|FileName=01 - MCU.SchDoc|SheetNumber= |SymbolType=Device Sheet|RawFileName=01 - MCU|DesignItemId= |SourceLibraryName= |ObjectKind=Sheet Symbol|RevisionGUID= |ItemGUID= |VaultGUID= 
+Record=SheetSymbol|SourceDocument=00 - Structure.SchDoc|Designator=U_02 - Interfaces|SchDesignator=U_02 - Interfaces|FileName=02 - Interfaces.SchDoc|SheetNumber= |SymbolType=Device Sheet|RawFileName=02 - Interfaces|DesignItemId= |SourceLibraryName= |ObjectKind=Sheet Symbol|RevisionGUID= |ItemGUID= |VaultGUID= 
+Record=SheetSymbol|SourceDocument=00 - Structure.SchDoc|Designator=U_03 - Power|SchDesignator=U_03 - Power|FileName=03 - Power.SchDoc|SheetNumber=2|SymbolType=Normal|RawFileName=03 - Power.SchDoc|DesignItemId= |SourceLibraryName= |ObjectKind=Sheet Symbol|RevisionGUID= |ItemGUID= |VaultGUID= 
