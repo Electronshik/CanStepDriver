@@ -19,6 +19,11 @@ LowLevel/CanStepDriverPowerstep/build
 LowLevel/CanStepDriverMosfets/build
 
 build
+# gitignore for cmake
+CMakeLists.txt.user
+CMakeCache.txt
+CMakeFiles
+Testing
 
 # User-specific uVision files
 *.opt
