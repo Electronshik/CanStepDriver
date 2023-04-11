@@ -36,7 +36,8 @@ BUILD_DIR = build
 ######################################
 # C sources
 C_SOURCES =  \
-Core/Src/main.c \
+LowLevel.c \
+Core/Src/ll_main.c \
 Core/Src/gpio.c \
 Core/Src/fdcan.c \
 Core/Src/i2c.c \
@@ -121,6 +122,7 @@ AS_INCLUDES =
 
 # C includes
 C_INCLUDES =  \
+-I../ \
 -ICore/Inc \
 -IDrivers/STM32G4xx_HAL_Driver/Inc \
 -IDrivers/STM32G4xx_HAL_Driver/Inc/Legacy \
@@ -166,6 +168,9 @@ vpath %.c $(sort $(dir $(C_SOURCES)))
 # list of ASM program objects
 OBJECTS += $(addprefix $(BUILD_DIR)/,$(notdir $(ASM_SOURCES:.s=.o)))
 vpath %.s $(sort $(dir $(ASM_SOURCES)))
+
+lib: $(OBJECTS) Makefile
+	arm-none-eabi-ar -rc lib$(TARGET).a $(OBJECTS)
 
 $(BUILD_DIR)/%.o: %.c Makefile | $(BUILD_DIR) 
 	$(CC) -c $(CFLAGS) -Wa,-a,-ad,-alms=$(BUILD_DIR)/$(notdir $(<:.c=.lst)) $< -o $@
