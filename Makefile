@@ -9,7 +9,7 @@ BUILD_DIR = build
 
 TARGET = CanStepDriverPowerstep
 LDSCRIPT = LowLevel/CanStepDriverPowerstep/STM32G431CBTx_FLASH.ld
-LIBS = -lc -lm -lnosys -lLowLevel
+LIBS = -lc -lm -lnosys -lCanStepDriverPowerstep
 LIBDIR = 
 
 MCU = -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard

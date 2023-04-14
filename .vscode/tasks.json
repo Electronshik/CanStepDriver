@@ -1,0 +1,67 @@
+{
+"version": "2.0.0",
+"tasks": [
+    {
+        "label": "make CanStepDriverPowerstep",
+        "type": "shell",
+        "options": {
+            "cwd": "${workspaceRoot}/LowLevel/CanStepDriverPowerstep"
+        },
+        "command": "make lib"
+    },
+    {
+        "label": "make CanStepDriverMosfets",
+        "type": "shell",
+        "options": {
+            "cwd": "${workspaceRoot}/LowLevel/CanStepDriverMosfets"
+        },
+        "command": "make lib"
+    },
+    {
+        "label": "make CanStepDriverF429",
+        "type": "shell",
+        "options": {
+            "cwd": "${workspaceRoot}/LowLevel/CanStepDriverF429"
+        },
+        "command": "make lib"
+    },
+    {
+        "type": "cmake",
+        "label": "CMake build Powerstep",
+        "command": "build",
+        "targets": [
+            "ALL_BUILD"
+        ],
+        "group": "build",
+        "problemMatcher": [],
+        "detail": "Build driver with Powerstep01",
+        "dependsOn": ["make CanStepDriverMosfets"]
+    },
+    {
+        "type": "cmake",
+        "label": "CMake build Mosfets",
+        "command": "build",
+        "targets": [
+            "ALL_BUILD"
+        ],
+        "group": "build",
+        "problemMatcher": [],
+        "detail": "Build driver with Mosfets",
+        "dependsOn": ["make CanStepDriverMosfets"]
+    },
+    {
+        "type": "cmake",
+        "label": "CMake build F429",
+        "command": "build",
+        "options": {"environment": {"TARG": "test_string"}},
+        "targets": [
+            "ALL_BUILD"
+        ],
+        "group": "build",
+        "problemMatcher": [],
+        "detail": "Build driver with Mosfets",
+        "dependsOn": ["make CanStepDriverF429"]
+    }
+]
+}
+//[proc] Executing command: "C:\Program Files\CMake\bin\cmake.EXE" --build c:/Users/User/Desktop/Code/CanStepDriver/build --config Debug --target all -j 10 --
