@@ -17,30 +17,6 @@ set(PROJECT_BINARY_DIR build)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_C_STANDARD 11)
 
-# set(TARGET CanStepDriverPowerstep)
-# set(TARGET CanStepDriverMosfets)
-set(TARGET CanStepDriverF429)
-
-message(TARG="$ENV{TARG}")
-
-set(MCPU cortex-m4)
-
-add_compile_definitions(ARM_MATH_CM4; ARM_MATH_MATRIX_CHECK; ARM_MATH_ROUNDING)
-add_compile_options(-mfloat-abi=hard -mfpu=fpv4-sp-d16)
-add_compile_options(-mcpu=${MCPU} -mthumb -mthumb-interwork)
-add_compile_options(-ffunction-sections -fdata-sections -fno-common -fmessage-length=0)
-
-# set(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/LowLevel/${TARGET}/STM32G431CBTx_FLASH.ld)
-set(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/LowLevel/${TARGET}/STM32F429ZITx_FLASH.ld)
-
-add_link_options(-mfloat-abi=hard -mfpu=fpv4-sp-d16)
-add_link_options(-Wl,-gc-sections,--print-memory-usage,-Map=${PROJECT_SOURCE_DIR}/${PROJECT_BINARY_DIR}/${PROJECT_NAME}.map)
-add_link_options(-mcpu=${MCPU} -mthumb -mthumb-interwork)
-add_link_options(-specs=nosys.specs -T ${LINKER_SCRIPT})
-# add_link_options(-L${PROJECT_SOURCE_DIR}/LowLevel/CanStepDriverPowerstep -lc -lm -lnosys -lLowLevel)
-add_link_options(-lc -lm -lnosys)
-# set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,-Map=${PROJECT_SOURCE_DIR}/build/${PROJECT_NAME}.map")
-
 file(GLOB_RECURSE SOURCES
 	"CoreApp/*.*"
 )
@@ -50,12 +26,62 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/LowLevel
 )
 
-add_executable(${TARGET}.elf ${SOURCES} ${LINKER_SCRIPT})
 
-target_link_libraries(${TARGET}.elf ${PROJECT_SOURCE_DIR}/LowLevel/${TARGET}/lib${TARGET}.a)
+# ALL TARGETS COMPILER AND LINKER OPTIONS
+set(MCPU cortex-m4)
+add_compile_definitions(ARM_MATH_CM4; ARM_MATH_MATRIX_CHECK; ARM_MATH_ROUNDING)
+add_compile_options(-mfloat-abi=hard -mfpu=fpv4-sp-d16)
+add_compile_options(-mcpu=${MCPU} -mthumb -mthumb-interwork)
+add_compile_options(-ffunction-sections -fdata-sections -fno-common -fmessage-length=0)
 
-set(HEX_FILE ${PROJECT_BINARY_DIR}/${TARGET}.hex)
-set(BIN_FILE ${PROJECT_BINARY_DIR}/${TARGET}.bin)
+add_link_options(-mfloat-abi=hard -mfpu=fpv4-sp-d16)
+add_link_options(-Wl,-gc-sections,--print-memory-usage)
+add_link_options(-mcpu=${MCPU} -mthumb -mthumb-interwork -specs=nosys.specs -lc -lm -lnosys)
+# ALL TARGETS COMPILER AND LINKER OPTIONS
 
-add_custom_target(${TARGET}.hex ALL DEPENDS ${TARGET}.elf COMMAND ${CMAKE_OBJCOPY} -Oihex ${TARGET}.elf ${TARGET}.hex)
-add_custom_target(${TARGET}.bin ALL DEPENDS ${TARGET}.elf COMMAND ${CMAKE_OBJCOPY} -Obinary -S ${TARGET}.elf ${TARGET}.bin)
+set(TARGET_POWERSTEP CanStepDriverPowerstep)
+set(TARGET_MOSFETS CanStepDriverMosfets)
+set(TARGET_F429 CanStepDriverF429)
+
+
+# TARGET_POWERSTEP
+add_executable(${TARGET_POWERSTEP}.elf ${SOURCES})
+target_link_libraries(${TARGET_POWERSTEP}.elf ${PROJECT_SOURCE_DIR}/LowLevel/${TARGET_POWERSTEP}/lib${TARGET_POWERSTEP}.a)
+target_compile_definitions(${TARGET_POWERSTEP}.elf PUBLIC
+	TARGET_POWERSTEP
+)
+target_link_options(${TARGET_POWERSTEP}.elf PUBLIC
+	-Wl,-Map=${PROJECT_SOURCE_DIR}/${PROJECT_BINARY_DIR}/${TARGET_POWERSTEP}.map
+	-T${PROJECT_SOURCE_DIR}/LowLevel/${TARGET_POWERSTEP}/STM32G431CBTx_FLASH.ld
+)
+add_custom_target(${TARGET_POWERSTEP}.hex ALL DEPENDS ${TARGET_POWERSTEP}.elf COMMAND ${CMAKE_OBJCOPY} -Oihex ${TARGET_POWERSTEP}.elf ${TARGET_POWERSTEP}.hex)
+add_custom_target(${TARGET_POWERSTEP}.bin ALL DEPENDS ${TARGET_POWERSTEP}.elf COMMAND ${CMAKE_OBJCOPY} -Obinary -S ${TARGET_POWERSTEP}.elf ${TARGET_POWERSTEP}.bin)
+# TARGET_POWERSTEP
+
+# TARGET_F429
+add_executable(${TARGET_F429}.elf ${SOURCES})
+target_link_libraries(${TARGET_F429}.elf ${PROJECT_SOURCE_DIR}/LowLevel/${TARGET_F429}/lib${TARGET_F429}.a)
+target_compile_definitions(${TARGET_F429}.elf PUBLIC
+	TARGET_F429
+)
+target_link_options(${TARGET_F429}.elf PUBLIC
+	-Wl,-Map=${PROJECT_SOURCE_DIR}/${PROJECT_BINARY_DIR}/${TARGET_F429}.map
+	-T${PROJECT_SOURCE_DIR}/LowLevel/${TARGET_F429}/STM32F429ZITx_FLASH.ld
+)
+add_custom_target(${TARGET_F429}.hex ALL DEPENDS ${TARGET_F429}.elf COMMAND ${CMAKE_OBJCOPY} -Oihex ${TARGET_F429}.elf ${TARGET_F429}.hex)
+add_custom_target(${TARGET_F429}.bin ALL DEPENDS ${TARGET_F429}.elf COMMAND ${CMAKE_OBJCOPY} -Obinary -S ${TARGET_F429}.elf ${TARGET_F429}.bin)
+# TARGET_F429
+
+# TARGET_MOSFETS
+add_executable(${TARGET_MOSFETS}.elf ${SOURCES})
+target_link_libraries(${TARGET_MOSFETS}.elf ${PROJECT_SOURCE_DIR}/LowLevel/${TARGET_MOSFETS}/lib${TARGET_MOSFETS}.a)
+target_compile_definitions(${TARGET_MOSFETS}.elf PUBLIC
+	TARGET_MOSFETS
+)
+target_link_options(${TARGET_MOSFETS}.elf PUBLIC
+	-Wl,-Map=${PROJECT_SOURCE_DIR}/${PROJECT_BINARY_DIR}/${TARGET_MOSFETS}.map
+	-T${PROJECT_SOURCE_DIR}/LowLevel/${TARGET_MOSFETS}/STM32G431CBTx_FLASH.ld
+)
+add_custom_target(${TARGET_MOSFETS}.hex ALL DEPENDS ${TARGET_MOSFETS}.elf COMMAND ${CMAKE_OBJCOPY} -Oihex ${TARGET_MOSFETS}.elf ${TARGET_MOSFETS}.hex)
+add_custom_target(${TARGET_MOSFETS}.bin ALL DEPENDS ${TARGET_MOSFETS}.elf COMMAND ${CMAKE_OBJCOPY} -Obinary -S ${TARGET_MOSFETS}.elf ${TARGET_MOSFETS}.bin)
+# TARGET_MOSFETS
