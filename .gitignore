@@ -19,6 +19,8 @@ LowLevel/CanStepDriverPowerstep/build
 LowLevel/CanStepDriverMosfets/build
 
 build
+.cortex-debug.registers.state.json
+
 # gitignore for cmake
 CMakeLists.txt.user
 CMakeCache.txt

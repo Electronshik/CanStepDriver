@@ -1,6 +1,6 @@
 #include "main.hpp"
+#include "Board.hpp"
 #include "stdint.h"
-#include "LowLevel.h"
 
 #ifdef TARGET_POWERSTEP
 volatile uint8_t TestArrayG431[32];
@@ -16,5 +16,5 @@ volatile uint8_t TestArrayF429[32];
 
 int main(void)
 {
-	LowLevel_Init();
+	Board_Init();
 }

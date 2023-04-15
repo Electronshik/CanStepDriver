@@ -19,10 +19,12 @@ set(CMAKE_C_STANDARD 11)
 
 file(GLOB_RECURSE SOURCES
 	"CoreApp/*.*"
+	"CoreBoard/*.*"
 )
 
 include_directories(
 	${CMAKE_SOURCE_DIR}/CoreApp
+	${CMAKE_SOURCE_DIR}/CoreBoard
 	${CMAKE_SOURCE_DIR}/LowLevel
 )
 
@@ -32,7 +34,7 @@ set(MCPU cortex-m4)
 add_compile_definitions(ARM_MATH_CM4; ARM_MATH_MATRIX_CHECK; ARM_MATH_ROUNDING)
 add_compile_options(-mfloat-abi=hard -mfpu=fpv4-sp-d16)
 add_compile_options(-mcpu=${MCPU} -mthumb -mthumb-interwork)
-add_compile_options(-ffunction-sections -fdata-sections -fno-common -fmessage-length=0)
+# add_compile_options(-ffunction-sections -fdata-sections -fno-common -fmessage-length=0)
 
 add_link_options(-mfloat-abi=hard -mfpu=fpv4-sp-d16)
 add_link_options(-Wl,-gc-sections,--print-memory-usage)
@@ -70,6 +72,7 @@ target_link_options(${TARGET_F429}.elf PUBLIC
 )
 add_custom_target(${TARGET_F429}.hex ALL DEPENDS ${TARGET_F429}.elf COMMAND ${CMAKE_OBJCOPY} -Oihex ${TARGET_F429}.elf ${TARGET_F429}.hex)
 add_custom_target(${TARGET_F429}.bin ALL DEPENDS ${TARGET_F429}.elf COMMAND ${CMAKE_OBJCOPY} -Obinary -S ${TARGET_F429}.elf ${TARGET_F429}.bin)
+configure_file(${PROJECT_SOURCE_DIR}/${PROJECT_BINARY_DIR}/${TARGET_F429}.elf ${PROJECT_SOURCE_DIR}/${PROJECT_BINARY_DIR}/${PROJECT_NAME}.elf COPYONLY)
 # TARGET_F429
 
 # TARGET_MOSFETS

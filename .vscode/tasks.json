@@ -61,7 +61,7 @@
         "command": "build",
         "options": {"environment": {"TARG": "test_string"}},
         "targets": [
-            "CanStepDriverF413.elf"
+            "CanStepDriverF429.elf"
         ],
         "group": "build",
         "problemMatcher": [],
@@ -80,6 +80,15 @@
         "problemMatcher": [],
         "detail": "Build driver with Mosfets",
         "dependsOn": ["make CanStepDriverF429"]
+    },
+    {
+        "label": "Flash Board",
+        "type": "shell",
+        "command": "STM32_Programmer_CLI",
+        "args": [
+            "-c port=SWD",
+            "-d build/CanStepDriver.elf -v"
+        ]
     }
 ]
 }
