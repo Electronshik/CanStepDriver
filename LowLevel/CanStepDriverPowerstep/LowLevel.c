@@ -5,7 +5,7 @@
 #include "spi.h"
 #include "gpio.h"
 
-void LowLevel_Init(void)
+void LowLevel_Init()
 {
 	HAL_Init();
 	SystemClock_Config();

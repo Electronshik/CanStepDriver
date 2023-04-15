@@ -57,6 +57,20 @@ void SystemClock_Config(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define RS485_DIR_Pin GPIO_PIN_0
+#define RS485_DIR_GPIO_Port GPIOA
+#define LED_RED_Pin GPIO_PIN_3
+#define LED_RED_GPIO_Port GPIOA
+#define LED_BLUE_Pin GPIO_PIN_6
+#define LED_BLUE_GPIO_Port GPIOA
+#define LED_GREEN_Pin GPIO_PIN_11
+#define LED_GREEN_GPIO_Port GPIOF
+#define CAN1_RS_Pin GPIO_PIN_2
+#define CAN1_RS_GPIO_Port GPIOD
+#define RS485_RX_Pin GPIO_PIN_9
+#define RS485_RX_GPIO_Port GPIOG
+#define RS485_TX_Pin GPIO_PIN_14
+#define RS485_TX_GPIO_Port GPIOG
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
