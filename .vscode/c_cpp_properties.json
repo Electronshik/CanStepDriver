@@ -5,7 +5,13 @@
             "includePath": [
                 "${workspaceFolder}/CoreApp",
                 "${workspaceFolder}/CoreBoard",
-                "${workspaceFolder}/LowLevel"
+                "${workspaceFolder}/LowLevel",
+                "${workspaceFolder}/CoreOS",
+                "${workspaceFolder}/build/_deps/etl-src/include",
+                "${workspaceFolder}/build/_deps/freertos_kernel-src/include",
+                "${workspaceFolder}/LowLevel/CanStepDriverF429/Core/Inc",
+                "${workspaceFolder}/LowLevel/CanStepDriverF429/Drivers/STM32F4xx_HAL_Driver/Inc",
+                "${workspaceFolder}/build/_deps/freertos_kernel-src/portable/GCC/ARM_CM4F"
             ],
             "defines": [
                 "_DEBUG",
@@ -13,11 +19,10 @@
                 "_UNICODE"
             ],
             "windowsSdkVersion": "10.0.19041.0",
-            "compilerPath": "cl.exe",
             "cStandard": "c17",
-            "cppStandard": "c++17",
+            "cppStandard": "c++20",
             "intelliSenseMode": "windows-msvc-x64",
-            "configurationProvider": "ms-vscode.makefile-tools"
+            "configurationProvider": "gcc"
         }
     ],
     "version": 4

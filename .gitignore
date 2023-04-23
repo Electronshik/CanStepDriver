@@ -18,6 +18,7 @@ Hardware/DeviceSheets/*.LOG
 LowLevel/CanStepDriverPowerstep/build
 LowLevel/CanStepDriverMosfets/build
 
+.vs
 build
 .cortex-debug.registers.state.json
 

@@ -1,0 +1,40 @@
+﻿{
+  "configurations": [
+    {
+      "name": "CanStepDriver F429",
+      "generator": "Ninja",
+      "configurationType": "Debug",
+      "inheritEnvironments": [ "gcc-arm" ],
+      "buildRoot": "${projectDir}\\build",
+      "installRoot": "${projectDir}\\out\\install\\${name}",
+      "cmakeCommandArgs": "--target CanStepDriverF429.elf",
+      "buildCommandArgs": "",
+      "ctestCommandArgs": "",
+      "variables": []
+    },
+    {
+      "name": "CanStepDriver Powerstep",
+      "generator": "Ninja",
+      "configurationType": "Debug",
+      "buildRoot": "${projectDir}\\build",
+      "installRoot": "${projectDir}\\out\\install\\${name}",
+      "cmakeCommandArgs": "--target CanStepDriverPowerstep.elf",
+      "buildCommandArgs": "",
+      "ctestCommandArgs": "",
+      "inheritEnvironments": [ "gcc-arm" ],
+      "variables": []
+    },
+    {
+      "name": "CanStepDriver Mosfets",
+      "generator": "Ninja",
+      "configurationType": "Debug",
+      "buildRoot": "${projectDir}\\build",
+      "installRoot": "${projectDir}\\out\\install\\${name}",
+      "cmakeCommandArgs": "--target CanStepDriverMosfets.elf",
+      "buildCommandArgs": "",
+      "ctestCommandArgs": "",
+      "inheritEnvironments": [ "gcc-arm" ],
+      "variables": []
+    }
+  ]
+}

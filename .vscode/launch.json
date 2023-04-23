@@ -7,12 +7,12 @@
 		{
 			"name": "Cortex Debug",
 			"cwd": "${workspaceFolder}",
-			"executable": "${workspaceFolder}/build/CanStepDriver.elf",
+			"executable": "${workspaceFolder}/build/CanStepDriverF429.elf",
 			"request": "launch",
 			"type": "cortex-debug",
 			"runToEntryPoint": "main",
 			"servertype": "stlink",
-			"gdbPath": "C:/Program Files (x86)/GNU Arm Embedded Toolchain/10 2021.07/bin/arm-none-eabi-gdb.exe",
+			"gdbPath": "arm-none-eabi-gdb",
 			"preLaunchTask": "Flash Board"
 		}
 	]
