@@ -1,35 +1,39 @@
 #include "Routines.hpp"
 #include "OS_Wrappers.hpp"
 #include "Board.hpp"
+#include "BoardConfig.hpp"
+#include "BoardInterface.hpp"
 #include "Globals.hpp"
 #include <cstdio>
 #include "etl/string.h"
 
-using namespace Board::RS485;
+using namespace Board;
 
 void Routines::Interface::Routine(void *pvParameters)
 {
 	uint8_t nl = '\n';
-	Init();
-	Transmit((uint8_t*)GenSettings.str, strlen(GenSettings.str));
-	Transmit(&nl, 1);
 
-	Receive();
+	IInterface *IFace = InterfaceType::GetInstance();
+	IFace->Transmit((uint8_t*)GenSettings.str, strlen(GenSettings.str));
+	IFace->Transmit(&nl, 1);
 
-	etl::string<MaxReceiveSize> ReceivedString;
+	IFace->Transmit((uint8_t*)"Test string", 10);
+	IFace->Receive();
+
+	etl::string<IFace->ReceiveBuffSize> ReceivedString;
 
 	for(;;)
 	{
-		if (!ReceiveBuffer.empty())
+		if (!IFace->ReceiveBuffer.empty())
 		{
 			OS::Delay(1);
 			ReceivedString.clear();
 
-			if (ReceiveBuffMutex.try_lock())
+			if (IFace->ReceiveBuffMutex.try_lock())
 			{
-				ReceivedString.assign(ReceiveBuffer.begin(), ReceiveBuffer.end());
-				ReceiveBuffer.clear();
-				ReceiveBuffMutex.unlock();
+				ReceivedString.assign(IFace->ReceiveBuffer.begin(), IFace->ReceiveBuffer.end());
+				IFace->ReceiveBuffer.clear();
+				IFace->ReceiveBuffMutex.unlock();
 				printf("%s", ReceivedString.c_str());
 			}
 

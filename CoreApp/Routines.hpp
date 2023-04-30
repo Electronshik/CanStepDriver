@@ -25,7 +25,7 @@ namespace Routines
 	namespace Interface
 	{
 		inline constexpr OS::TName Name = "Interface Handle";
-		inline constexpr OS::TStack Stack = 128;
+		inline constexpr OS::TStack Stack = 256;
 		inline constexpr OS::TPrio Prio = 0;
 
 		void Routine(void *pvParameters);

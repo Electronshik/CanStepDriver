@@ -13,14 +13,4 @@ namespace Board
 		void SetGreen(uint8_t value);
 		void SetBlue(uint8_t value);
 	}
-
-	namespace RS485
-	{
-		inline constexpr uint8_t MaxReceiveSize = 64;
-		extern etl::vector<uint8_t, MaxReceiveSize> ReceiveBuffer;
-		extern etl::mutex ReceiveBuffMutex;
-		void Init();
-		void Transmit(uint8_t *pData, uint16_t Size);
-		void Receive();
-	}
 }

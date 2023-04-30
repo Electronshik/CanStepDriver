@@ -8,6 +8,8 @@ using namespace Board::LedRGB;
 void Routines::Led::Routine(void *pvParameters)
 {
 	GlCmd cmd;
+	SetBlue(10);
+
 	for(;;)
 	{
 		cmd.Type = GlCmdType::NO;

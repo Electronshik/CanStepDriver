@@ -75,7 +75,13 @@
 		"xlocinfo": "cpp",
 		"xlocmon": "cpp",
 		"xlocnum": "cpp",
-		"xloctime": "cpp"
+		"xloctime": "cpp",
+		"charconv": "cpp",
+		"format": "cpp",
+		"locale": "cpp",
+		"stop_token": "cpp",
+		"xlocbuf": "cpp",
+		"xlocmes": "cpp"
 	},
 	"cmake.generator": "Unix Makefiles"
 }
