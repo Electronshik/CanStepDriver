@@ -5,11 +5,11 @@
 #include "StorableSettings.hpp"
 #include <string.h>
 
-template <class TMemory>
-class Memory
+template <class TMemory = Board::MemoryType>
+class Memory : public Singleton<Memory<>>
 {
 	public:
-		Memory(Board::MemoryParams_t &MemoryParams);
+		Memory(Board::MemoryParams_t &MemoryParams = Board::MemoryParams);
 		~Memory();
 		void SetBuff(uint8_t *buff, size_t len);
 		void GetBuff(uint8_t *buff, size_t len);

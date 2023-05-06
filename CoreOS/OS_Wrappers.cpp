@@ -20,17 +20,17 @@ void operator delete(void* ptr)
 {
 	vPortFree(ptr);
 }
- 
+
 void operator delete(void* ptr, size_t size)
 {
 	vPortFree(ptr);
 }
- 
+
 void operator delete[](void* ptr)
 {
 	vPortFree(ptr);
 }
- 
+
 void operator delete[](void* ptr, size_t size)
 {
 	vPortFree(ptr);
@@ -38,7 +38,6 @@ void operator delete[](void* ptr, size_t size)
 
 namespace OS
 {
-
 	void Start()
 	{
 		vTaskStartScheduler();
@@ -49,15 +48,20 @@ namespace OS
 		vTaskDelay(delay);
 	}
 
+	void Suspend()
+	{
+		vTaskSuspendAll();
+	}
+
+	void Resume()
+	{
+		xTaskResumeAll();
+	}
+
 	Thread::Thread(void(*func)(void*), const char *name, uint16_t stack_size, void *param, uint32_t prio)
 	{
-		BaseType_t xReturned = xTaskCreate(
-			(TaskFunction_t)func,	/* Function that implements the task. */
-			name,				/* Text name for the task. */
-			stack_size,			/* Stack size in words, not bytes. */
-			(void*)param,		/* Parameter passed into the task. */
-			prio,				/* Priority at which the task is created. */
-			(TaskHandle_t *const)(&(this->Handle)));	/* Used to pass out the created task's handle. */
+		BaseType_t xReturned = xTaskCreate((TaskFunction_t)func, name,
+			stack_size, (void*)param, prio, (TaskHandle_t *const)(&(this->Handle)));
 	}
 
 	Thread::~Thread()
@@ -65,4 +69,13 @@ namespace OS
 		vTaskDelete((TaskHandle_t)this->Handle);
 	}
 
+	void Thread::Suspend()
+	{
+		vTaskSuspend((TaskHandle_t)this->Handle);
+	}
+
+	void Thread::Resume()
+	{
+		vTaskResume((TaskHandle_t)this->Handle);
+	}
 }

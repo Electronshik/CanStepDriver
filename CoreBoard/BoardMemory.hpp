@@ -3,7 +3,6 @@
 
 namespace Board
 {
-
 	typedef struct
 	{
 		uint32_t BeginAddr;
@@ -38,5 +37,4 @@ namespace Board
 		private:
 			const uint32_t WriteDelay = 10;
 	};
-
 }

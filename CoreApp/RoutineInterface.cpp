@@ -11,13 +11,14 @@ using namespace Board;
 
 void Routines::Interface::Routine(void *pvParameters)
 {
-	uint8_t nl = '\n';
+	OS::Delay(100);
 
+	uint8_t nl = '\n';
 	IInterface *IFace = InterfaceType::GetInstance();
 	IFace->Transmit((uint8_t*)GenSettings.str, strlen(GenSettings.str));
 	IFace->Transmit(&nl, 1);
 
-	IFace->Transmit((uint8_t*)"Test string", 10);
+	IFace->Transmit((uint8_t*)"Test string\n", 12);
 	IFace->Receive();
 
 	etl::string<IFace->ReceiveBuffSize> ReceivedString;
