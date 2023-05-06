@@ -2,3 +2,5 @@
 .vscode/* linguist-vendored
 Hardware/* linguist-vendored
 LowLevel/* linguist-vendored
+*.hpp linguist-language=C++
+*.cpp linguist-language=C++
