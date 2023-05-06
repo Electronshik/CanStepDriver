@@ -1,6 +1,6 @@
-.vs/* linguist-vendored
-.vscode/* linguist-vendored
-Hardware/* linguist-vendored
-LowLevel/* linguist-vendored
+.vs/* linguist-detectable=false
+.vscode/* linguist-detectable=false
+Hardware/* linguist-detectable=false
+LowLevel/* linguist-detectable=false
 *.hpp linguist-language=C++
 *.cpp linguist-language=C++
