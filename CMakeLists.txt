@@ -35,13 +35,14 @@ set(CMAKE_BUILD_TYPE DEBUG)
 # ALL TARGETS COMPILER AND LINKER OPTIONS
 set(MCPU cortex-m4)
 add_compile_options(-mfloat-abi=hard -mfpu=fpv4-sp-d16)
-add_compile_options(-mcpu=${MCPU} -mthumb)
-add_compile_options(-ffunction-sections -fdata-sections -fno-common -fmessage-length=0)
-add_compile_options(-g -O0 -Wwrite-strings -fno-exceptions)	# -fno-exceptions -fno-rtti)
-
+add_compile_options(-mcpu=${MCPU} -mthumb -fno-common)
+add_compile_options(-ffunction-sections -fdata-sections -fmessage-length=0)
+add_compile_options(-g -O0 -Wwrite-strings -funwind-tables) # -fno-exceptions -fno-rtti)
+#  -funwind-tables -std=c++20
 add_link_options(-mfloat-abi=hard -mfpu=fpv4-sp-d16)
 add_link_options(-Wl,--gc-sections,--print-memory-usage -Wwrite-strings)
-add_link_options(-mcpu=${MCPU} -mthumb -specs=nosys.specs -lnosys -specs=nano.specs -lc -lm) # -specs=nosys.specs -lnosys -lstdc++ -lsupc++
+add_link_options(-mcpu=${MCPU} -mthumb -funwind-tables -lm -specs=nosys.specs)
+# -specs=nano.specs -lc -specs=nosys.specs -lnosys -lstdc++ -lsupc++
 # ALL TARGETS COMPILER AND LINKER OPTIONS
 
 # FREERTOS SETTINGS

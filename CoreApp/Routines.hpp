@@ -16,7 +16,7 @@ namespace Routines
 	namespace Main
 	{
 		inline constexpr OS::TName Name = "Main Thread";
-		inline constexpr OS::TStack Stack = 128;
+		inline constexpr OS::TStack Stack = 256;
 		inline constexpr OS::TPrio Prio = 0;
 
 		void Routine(void *pvParameters);

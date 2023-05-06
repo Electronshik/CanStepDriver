@@ -27,6 +27,23 @@ int main(void)
 	OS::Start();
 }
 
+[[noreturn]] void Terminate() noexcept
+{
+	// handler for uncatched exceptions
+	Board::IInterface *IFace = Board::InterfaceType::GetInstance();
+	IFace->Transmit((uint8_t*)"Ex Terminate\n", 8);
+	while (true)
+	{
+		/* code */
+	}
+	
+}
+
+namespace __cxxabiv1
+{
+	std::terminate_handler __terminate_handler = Terminate;
+}
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -34,7 +51,7 @@ extern "C" {
 int _write(int fd, char* ptr, int len)
 {
 	Board::InterfaceType::GetInstance()->Transmit((uint8_t*)ptr, len);
-	return 1;
+	return len;
 }
 
 #ifdef __cplusplus
