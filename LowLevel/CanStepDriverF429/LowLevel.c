@@ -8,7 +8,6 @@
 #include "stm32f4xx_it.h"
 
 static const uint16_t I2C_EEPROM_TIMEOUT = 10U;
-
 volatile bool unused_fix = false;
 
 // this used for force linker to link interrupt handlers
