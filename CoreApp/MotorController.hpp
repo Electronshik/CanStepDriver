@@ -3,11 +3,12 @@
 #include <concepts>
 
 template <class T> concept StepMotor =
-requires(T t)
+requires(T t, MotorDir Dir)
 {
-	{ T() };
+	// typename T::Dir;
+	T();
 	{ ::new(T) };
-	{ t.Move(uint32_t{}) } -> std::same_as<void>;
+	{ t.Move(Dir, uint32_t{}) } -> std::same_as<void>;
 	{ t.Stop() } -> std::same_as<void>;
 };
 
@@ -17,7 +18,7 @@ class MotorController
 	public:
 		MotorController();
 		~MotorController();
-		void GoTo(uint32_t value);
+		void GoTo(uint32_t Position);
 	private:
 		T* Motor;
 };
@@ -34,8 +35,8 @@ MotorController<T>::~MotorController()
 }
 
 template <StepMotor T>
-void MotorController<T>::GoTo(uint32_t value)
+void MotorController<T>::GoTo(uint32_t Position)
 {
-	Motor.Move(value);
-	Motor.Stop();
+	Motor->Move(MotorDir::UP, Position);
+	Motor->Stop();
 }

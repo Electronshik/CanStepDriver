@@ -18,6 +18,7 @@ void Routines::Main::Routine(void *pvParameters)
 
 	for(;;)
 	{
+		Motor->GoTo(100);
 		OS::Delay(100);
 	}
 }
