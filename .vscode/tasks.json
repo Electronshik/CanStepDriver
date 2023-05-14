@@ -60,6 +60,7 @@
         "label": "CMake build F429",
         "command": "build",
         "targets": [
+            "Shared",
             "CanStepDriverF429.elf"
         ],
         "group": "build",

@@ -28,6 +28,7 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/CoreBoard
 	${CMAKE_SOURCE_DIR}/CoreOS
 	${CMAKE_SOURCE_DIR}/LowLevel
+	${CMAKE_SOURCE_DIR}/CoreLib
 )
 
 set(CMAKE_BUILD_TYPE DEBUG)
@@ -86,6 +87,22 @@ function(add_common_targets CURRENT_TARGET)
 	add_custom_target(${CURRENT_TARGET}.hex ALL DEPENDS ${CURRENT_TARGET}.elf COMMAND ${CMAKE_OBJCOPY} -Oihex ${CURRENT_TARGET}.elf ${CURRENT_TARGET}.hex)
 	add_custom_target(${CURRENT_TARGET}.bin ALL DEPENDS ${CURRENT_TARGET}.elf COMMAND ${CMAKE_OBJCOPY} -Obinary -S ${CURRENT_TARGET}.elf ${CURRENT_TARGET}.bin)
 endfunction()
+
+# TARGET_SHARED
+set(SHARED_LIB Shared)
+set_property(GLOBAL PROPERTY TARGET_SUPPORTS_SHARED_LIBS true)
+add_library(${SHARED_LIB} STATIC ${PROJECT_SOURCE_DIR}/CoreLib/SharedLib.cpp)
+
+# target_compile_options(${SHARED_LIB} PUBLIC -fPIC)
+# target_link_options(${SHARED_LIB} PUBLIC -fPIC)
+target_include_directories(${SHARED_LIB} PUBLIC
+	${CMAKE_SOURCE_DIR}/CoreLib
+)
+# TARGET_SHARED
+
+# RAM:       37992 B       192 KB     19.32%
+# CCMRAM:          0 GB        64 KB      0.00%
+# FLASH:       74376 B         2 MB      3.55%
 
 # TARGET_POWERSTEP
 add_executable(${TARGET_POWERSTEP}.elf ${SOURCES})
