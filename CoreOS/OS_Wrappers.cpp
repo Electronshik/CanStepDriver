@@ -4,6 +4,8 @@
 #include "portable.h"
 #include "task.h"
 
+uint8_t ucHeap[ configTOTAL_HEAP_SIZE ] __attribute__ ((section (".ccmram")));
+
 void* operator new(size_t size)
 {
 	return pvPortMalloc(size);

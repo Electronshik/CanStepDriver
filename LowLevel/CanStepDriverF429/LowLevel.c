@@ -102,7 +102,8 @@ LlErrorCode LowLevel_RS485_Transmit(uint8_t *pData, uint16_t Size)
 
 LlErrorCode LowLevel_RS485_Receive(uint8_t *pData, uint16_t Size)
 {
-	HAL_UART_Receive_IT(&huart6, pData, Size);
+	HAL_StatusTypeDef status = HAL_UART_Receive_IT(&huart6, pData, Size);
+	return status == HAL_OK ? LL_OK : LL_ERR;
 }
 
 
