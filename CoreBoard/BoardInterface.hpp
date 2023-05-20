@@ -13,6 +13,7 @@ namespace Board
 			static const uint16_t TransmitBuffSize = 64;
 			etl::vector<uint8_t, ReceiveBuffSize> ReceiveBuffer;
 			etl::mutex ReceiveBuffMutex;
+			etl::mutex TransmitMutex;
 			virtual ErrorCode Transmit(etl::array<uint8_t, 64> Data) = 0;
 			virtual ErrorCode Transmit(uint8_t *Data, uint16_t Size) = 0;
 			virtual void Receive() = 0;

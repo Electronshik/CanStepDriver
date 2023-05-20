@@ -13,4 +13,10 @@ namespace Board
 		void SetGreen(uint8_t value);
 		void SetBlue(uint8_t value);
 	}
+
+	namespace Flash
+	{
+		uint32_t GetFreeAddr();
+		void Write(uint32_t Addr, uint8_t *Data, uint32_t Size);
+	}
 }

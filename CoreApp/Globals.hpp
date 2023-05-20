@@ -32,7 +32,8 @@ extern Globals Global;
 enum class GlCmdType
 {
 	NO,
-	LED
+	LED,
+	FLASH
 };
 
 struct GlCmd

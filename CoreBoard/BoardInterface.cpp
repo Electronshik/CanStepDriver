@@ -10,12 +10,28 @@ RS485::RS485()
 
 ErrorCode RS485::Transmit(etl::array<uint8_t, TransmitBuffSize> Data)
 {
-	return LowLevel_RS485_Transmit((uint8_t*)Data.data(), (uint16_t)Data.size()) == LlErrorCode::LL_OK ? ErrorCode::OK : ErrorCode::ERR;
+	LlErrorCode Error = LlErrorCode::LL_ERR;
+
+	if (this->TransmitMutex.try_lock())
+	{
+		LlErrorCode Error = LowLevel_RS485_Transmit((uint8_t*)Data.data(), (uint16_t)Data.size());
+		this->TransmitMutex.unlock();
+	}
+
+	return Error == LlErrorCode::LL_OK ? ErrorCode::OK : ErrorCode::ERR;
 }
 
 ErrorCode RS485::Transmit(uint8_t *Data, uint16_t Size)
 {
-	return LowLevel_RS485_Transmit(Data, Size) == LlErrorCode::LL_OK ? ErrorCode::OK : ErrorCode::ERR;
+	LlErrorCode Error = LlErrorCode::LL_ERR;
+
+	if (this->TransmitMutex.try_lock())
+	{
+		LlErrorCode Error = LowLevel_RS485_Transmit(Data, Size);
+		this->TransmitMutex.unlock();
+	}
+
+	return Error == LlErrorCode::LL_OK ? ErrorCode::OK : ErrorCode::ERR;
 }
 
 void RS485::Receive()

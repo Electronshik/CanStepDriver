@@ -7,7 +7,7 @@ namespace Routines
 	namespace Led
 	{
 		inline constexpr OS::TName Name = "Led Indication";
-		inline constexpr OS::TStack Stack = 128;
+		inline constexpr OS::TStack Stack = 512;
 		inline constexpr OS::TPrio Prio = 0;
 
 		void Routine(void *pvParameters);

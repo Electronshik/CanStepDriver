@@ -30,4 +30,17 @@ namespace Board
 			LowLevel_LedRGB_SetBlue(value);
 		}
 	}
+
+	namespace Flash
+	{
+		uint32_t GetFreeAddr()
+		{
+			return LowLevel_GetFreeFlashAddr();
+		}
+
+		void Write(uint32_t Addr, uint8_t *Data, uint32_t Size)
+		{
+			LowLevel_WriteFlash(Addr, Data, Size);
+		}
+	}
 }

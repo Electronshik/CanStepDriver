@@ -54,6 +54,11 @@ void Routines::Interface::Routine(void *pvParameters)
 				cmd.Type = GlCmdType::LED;
 				cmd.Value = 3;
 			}
+			else if (ReceivedString.compare("4") == 0)
+			{
+				cmd.Type = GlCmdType::FLASH;
+				cmd.Value = 1;
+			}
 
 			if (cmd.Type != GlCmdType::NO)
 			{
