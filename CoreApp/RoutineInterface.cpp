@@ -6,6 +6,7 @@
 #include "Globals.hpp"
 #include <cstdio>
 #include "etl/string.h"
+#include "SharedLib.hpp"
 
 using namespace Board;
 
@@ -58,6 +59,10 @@ void Routines::Interface::Routine(void *pvParameters)
 			{
 				cmd.Type = GlCmdType::FLASH;
 				cmd.Value = 1;
+			}
+			else if (ReceivedString.compare("5") == 0)
+			{
+				Flash_Led();
 			}
 
 			if (cmd.Type != GlCmdType::NO)
