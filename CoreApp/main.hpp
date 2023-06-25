@@ -3,6 +3,9 @@
 #include <cstdint>
 #include "StorableSettings.hpp"
 
+constexpr uint8_t MAX_TASKS = 32;
+constexpr uint8_t MAX_TASK_NAME_LEN = 32;
+
 enum class ErrorCode
 {
 	OK,

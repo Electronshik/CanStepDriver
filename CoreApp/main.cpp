@@ -7,6 +7,8 @@
 #include "OS_Wrappers.hpp"
 #include <atomic>
 #include <cstdio>
+#include "etl/string.h"
+#include "etl/map.h"
 
 using namespace Routines;
 
@@ -20,9 +22,11 @@ int main(void)
 
 	Global.State = GlState::MOVING;
 
-	auto LedTask = new OS::Thread(Led::Routine, Led::Name, Led::Stack, 0, Led::Prio);
-	auto MainTask = new OS::Thread(Main::Routine, Main::Name, Main::Stack, 0, Main::Prio);
-	auto InterfaceTask = new OS::Thread(Interface::Routine, Interface::Name, Interface::Stack, 0, Interface::Prio);
+	etl::map<etl::string<MAX_TASK_NAME_LEN>, OS::Thread*, MAX_TASKS> Tasks;
+
+	Tasks["LedTask"] = new OS::Thread(Led::Routine, Led::Name, Led::Stack, 0, Led::Prio);
+	Tasks["MainTask"] = new OS::Thread(Main::Routine, Main::Name, Main::Stack, 0, Main::Prio);
+	Tasks["InterfaceTask"] = new OS::Thread(Interface::Routine, Interface::Name, Interface::Stack, 0, Interface::Prio);
 
 	OS::Start();
 }

@@ -15,10 +15,10 @@ namespace Board
 	class IMemory
 	{
 		public:
-			MemoryParams_t &MemoryParams;
+			const MemoryParams_t &MemoryParams;
 			virtual void Erase(size_t MemAddress, uint32_t Size) = 0;
-			virtual void Write(size_t MemAddress, uint8_t *pData, uint32_t Size) = 0;
-			virtual void Read(size_t MemAddress, uint8_t *pData, uint32_t Size) = 0;
+			virtual void Write(size_t MemAddress, uint8_t *Data, uint32_t Size) = 0;
+			virtual void Read(size_t MemAddress, uint8_t *Data, uint32_t Size) = 0;
 			virtual ~IMemory() {}
 
 		protected:
@@ -30,11 +30,24 @@ namespace Board
 		public:
 			Memory_I2C(MemoryParams_t &MemoryParams);
 			void Erase(size_t MemAddress, uint32_t Size) override;
-			void Write(size_t MemAddress, uint8_t *pData, uint32_t Size) override;
-			void Read(size_t MemAddress, uint8_t *pData, uint32_t Size) override;
+			void Write(size_t MemAddress, uint8_t *Data, uint32_t Size) override;
+			void Read(size_t MemAddress, uint8_t *Data, uint32_t Size) override;
 			~Memory_I2C() {};
 
 		private:
 			const uint32_t WriteDelay = 10;
+	};
+
+	class Memory_FRAM : public IMemory
+	{
+		public:
+			Memory_FRAM(MemoryParams_t &MemoryParams);
+			void Erase(size_t MemAddress, uint32_t Size) override;
+			void Write(size_t MemAddress, uint8_t *Data, uint32_t Size) override;
+			void Read(size_t MemAddress, uint8_t *Data, uint32_t Size) override;
+			~Memory_FRAM() {};
+
+		private:
+			const uint32_t WriteDelay = 0;
 	};
 }

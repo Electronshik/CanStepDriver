@@ -19,7 +19,7 @@ void Routines::Led::Routine(void *pvParameters)
 
 		if (!GlCmdQueue.empty())
 		{
-			GlCmdQueue.pop_into (cmd);
+			GlCmdQueue.pop_into(cmd);
 		}
 
 		if (cmd.Type == GlCmdType::LED)

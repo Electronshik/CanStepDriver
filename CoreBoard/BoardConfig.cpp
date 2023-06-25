@@ -12,4 +12,13 @@ namespace Board
 		.BusAddr = 0x50
 	};
 
+	MemoryParams_t FRAM_MemoryParams =
+	{
+		.BeginAddr = 0x00,
+		.FullSize = 8192,
+		.ErasedVal = 0x00,
+		.PageSize = 0,
+		.BusAddr = 0x57
+	};
+
 }
