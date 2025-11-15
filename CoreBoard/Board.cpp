@@ -29,7 +29,7 @@ namespace Board
 		{
 			LowLevel_LedRGB_SetBlue(value);
 		}
-	}
+	} // namespace LedRGB
 
 	namespace Flash
 	{
@@ -38,9 +38,9 @@ namespace Board
 			return LowLevel_GetFreeFlashAddr();
 		}
 
-		void Write(uint32_t Addr, uint8_t *Data, uint32_t Size)
+		void Write(uint32_t Addr, uint8_t* Data, uint32_t Size)
 		{
 			LowLevel_WriteFlash(Addr, Data, Size);
 		}
-	}
-}
+	} // namespace Flash
+} // namespace Board

@@ -1,7 +1,7 @@
 #pragma once
+#include "StorableSettings.hpp"
 #include <cstddef>
 #include <cstdint>
-#include "StorableSettings.hpp"
 
 constexpr uint8_t MAX_TASKS = 32;
 constexpr uint8_t MAX_TASK_NAME_LEN = 32;
@@ -15,15 +15,15 @@ enum class ErrorCode
 extern GeneralSetting GenSettings;
 extern MotorSetting MotorSettings;
 
-template<class S>
+template <class S>
 class Singleton
 {
 	public:
-		static S* GetInstance()	//noexcept(std::is_nothrow_constructible<T>::value)
+		static S* GetInstance() // noexcept(std::is_nothrow_constructible<T>::value)
 		{
-			if(Instance == nullptr)
+			if (Instance == nullptr)
 				Instance = new S();
-				
+
 			return Instance;
 		}
 

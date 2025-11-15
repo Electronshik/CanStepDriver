@@ -1,6 +1,6 @@
-#include "main.hpp"
-#include "BoardMemory.hpp"
 #include "BoardInterface.hpp"
+#include "BoardMemory.hpp"
+#include "main.hpp"
 
 namespace Board
 {
@@ -11,4 +11,4 @@ namespace Board
 	extern MemoryParams_t FRAM_MemoryParams;
 
 	using InterfaceType = RS485;
-}
+} // namespace Board

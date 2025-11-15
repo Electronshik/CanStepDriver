@@ -1,19 +1,19 @@
-#include "Routines.hpp"
-#include "OS_Wrappers.hpp"
 #include "Board.hpp"
 #include "Globals.hpp"
+#include "OS_Wrappers.hpp"
+#include "Routines.hpp"
 #include <cstdio>
 
 using namespace Board::LedRGB;
 
 uint8_t testArr[128];
 
-void Routines::Led::Routine(void *pvParameters)
+void Routines::Led::Routine(void* pvParameters)
 {
 	GlCmd cmd;
 	SetBlue(10);
 
-	for(;;)
+	for (;;)
 	{
 		cmd.Type = GlCmdType::NO;
 
@@ -54,7 +54,7 @@ void Routines::Led::Routine(void *pvParameters)
 			Board::Flash::Write(Addr, testArr, sizeof(testArr));
 
 			uint32_t CmpFaults = 0;
-			uint8_t *WrittenPtr = (uint8_t*)Addr;
+			uint8_t* WrittenPtr = (uint8_t*)Addr;
 			for (size_t i = 0; i < sizeof(testArr); i++)
 			{
 				if (testArr[i] != WrittenPtr[i])

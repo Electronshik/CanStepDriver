@@ -1,8 +1,8 @@
 #pragma once
+#include "etl/mutex.h"
+#include "etl/vector.h"
 #include "main.hpp"
 #include <etl/array.h>
-#include "etl/vector.h"
-#include "etl/mutex.h"
 
 namespace Board
 {
@@ -15,7 +15,7 @@ namespace Board
 			etl::mutex ReceiveBuffMutex;
 			etl::mutex TransmitMutex;
 			virtual ErrorCode Transmit(etl::array<uint8_t, 64> Data) = 0;
-			virtual ErrorCode Transmit(uint8_t *Data, uint16_t Size) = 0;
+			virtual ErrorCode Transmit(uint8_t* Data, uint16_t Size) = 0;
 			virtual void Receive() = 0;
 
 		protected:
@@ -25,7 +25,7 @@ namespace Board
 
 	class RS485 : public IInterface, public Singleton<RS485>
 	{
-		friend class Singleton<RS485>;
+			friend class Singleton<RS485>;
 
 		public:
 			static void ReceiveCallback();
@@ -33,7 +33,7 @@ namespace Board
 			uint8_t ReceiveSize = 1;
 			uint8_t LLReceiveBuffer[ReceiveBuffSize];
 			ErrorCode Transmit(etl::array<uint8_t, 64> Data) override;
-			ErrorCode Transmit(uint8_t *Data, uint16_t Size) override;
+			ErrorCode Transmit(uint8_t* Data, uint16_t Size) override;
 			void Receive() override;
 			void Receive(uint8_t ReceiveSize);
 
@@ -43,4 +43,4 @@ namespace Board
 			RS485& operator=(RS485&) = delete;
 			~RS485() = default;
 	};
-}
+} // namespace Board

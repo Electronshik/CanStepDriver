@@ -1,14 +1,14 @@
 #include "main.hpp"
-#include "Routines.hpp"
 #include "Board.hpp"
 #include "BoardConfig.hpp"
 #include "BoardInterface.hpp"
 #include "Globals.hpp"
 #include "OS_Wrappers.hpp"
+#include "Routines.hpp"
+#include "etl/map.h"
+#include "etl/string.h"
 #include <atomic>
 #include <cstdio>
-#include "etl/string.h"
-#include "etl/map.h"
 
 using namespace Routines;
 
@@ -34,29 +34,29 @@ int main(void)
 [[noreturn]] void Terminate() noexcept
 {
 	// handler for uncatched exceptions
-	Board::IInterface *IFace = Board::InterfaceType::GetInstance();
+	Board::IInterface* IFace = Board::InterfaceType::GetInstance();
 	IFace->Transmit((uint8_t*)"Ex Terminate\n", 8);
 	while (true)
 	{
 		/* code */
 	}
-	
 }
 
 namespace __cxxabiv1
 {
-	std::terminate_handler __terminate_handler = Terminate;
+	// std::terminate_handler __terminate_handler = Terminate;
 }
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
-int _write(int fd, char* ptr, int len)
-{
-	Board::InterfaceType::GetInstance()->Transmit((uint8_t*)ptr, len);
-	return len;
-}
+	int _write(int fd, char* ptr, int len)
+	{
+		Board::InterfaceType::GetInstance()->Transmit((uint8_t*)ptr, len);
+		return len;
+	}
 
 #ifdef __cplusplus
 }

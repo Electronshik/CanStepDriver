@@ -1,20 +1,20 @@
-#include "Routines.hpp"
-#include "OS_Wrappers.hpp"
 #include "Board.hpp"
 #include "BoardConfig.hpp"
-#include "MemoryStorage.hpp"
 #include "DBStorage.hpp"
+#include "MemoryStorage.hpp"
 #include "MotorController.hpp"
+#include "OS_Wrappers.hpp"
+#include "Routines.hpp"
 #include "stdio.h"
-#include <etl/string.h>
 #include <etl/array.h>
 #include <etl/crc.h>
+#include <etl/string.h>
 // #include <algorithm>
 
 GeneralSetting GenSettings(0);
 MotorSetting MotorSettings(64);
 
-void Routines::Main::Routine(void *pvParameters)
+void Routines::Main::Routine(void* pvParameters)
 {
 	Memory<>* MemoryStorage = Memory<>::GetInstance();
 	MemoryStorage->RestoreSetting(&GenSettings);
@@ -33,14 +33,14 @@ void Routines::Main::Routine(void *pvParameters)
 	etl::string<32> toHash;
 	toHash.assign(readed);
 	etl::crc32 crc_calc;
-	etl::array<unsigned char, 32> data { 9, 1, 8, 2, 7, 3, 6, 4, 5 };
+	etl::array<unsigned char, 32> data{9, 1, 8, 2, 7, 3, 6, 4, 5};
 	etl::copy(data.begin(), data.end(), crc_calc.input());
 
 	printf("crc_calc: 0x%x\n", crc_calc.value());
 
-	MotorController<MotorVirtual>* Motor = new(MotorController<MotorVirtual>);
+	MotorController<MotorVirtual>* Motor = new (MotorController<MotorVirtual>);
 
-	for(;;)
+	for (;;)
 	{
 		Motor->GoTo(100);
 		OS::Delay(100);

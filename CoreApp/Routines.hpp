@@ -1,6 +1,6 @@
 #pragma once
-#include "main.hpp"
 #include "OS_Wrappers.hpp"
+#include "main.hpp"
 
 namespace Routines
 {
@@ -10,8 +10,8 @@ namespace Routines
 		inline constexpr OS::TStack Stack = 512;
 		inline constexpr OS::TPrio Prio = 0;
 
-		void Routine(void *pvParameters);
-	}
+		void Routine(void* pvParameters);
+	} // namespace Led
 
 	namespace Main
 	{
@@ -19,8 +19,8 @@ namespace Routines
 		inline constexpr OS::TStack Stack = 256;
 		inline constexpr OS::TPrio Prio = 0;
 
-		void Routine(void *pvParameters);
-	}
+		void Routine(void* pvParameters);
+	} // namespace Main
 
 	namespace Interface
 	{
@@ -28,6 +28,6 @@ namespace Routines
 		inline constexpr OS::TStack Stack = 512;
 		inline constexpr OS::TPrio Prio = 0;
 
-		void Routine(void *pvParameters);
-	}
-}
+		void Routine(void* pvParameters);
+	} // namespace Interface
+} // namespace Routines

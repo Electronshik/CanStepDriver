@@ -21,7 +21,7 @@ ErrorCode RS485::Transmit(etl::array<uint8_t, TransmitBuffSize> Data)
 	return Error == LlErrorCode::LL_OK ? ErrorCode::OK : ErrorCode::ERR;
 }
 
-ErrorCode RS485::Transmit(uint8_t *Data, uint16_t Size)
+ErrorCode RS485::Transmit(uint8_t* Data, uint16_t Size)
 {
 	LlErrorCode Error = LlErrorCode::LL_ERR;
 
@@ -49,7 +49,7 @@ void RS485::Receive(uint8_t ReceiveSize)
 
 void RS485::ReceiveCallback()
 {
-	RS485 *RS485Instance = RS485::GetInstance();
+	RS485* RS485Instance = RS485::GetInstance();
 	if (RS485Instance->ReceiveBuffMutex.try_lock())
 	{
 		if ((RS485Instance->ReceiveBuffer.size() + RS485Instance->ReceiveSize) > ReceiveBuffSize)

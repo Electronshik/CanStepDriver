@@ -8,21 +8,6 @@
 #include "stm32f4xx_it.h"
 
 static const uint16_t I2C_EEPROM_TIMEOUT = 10U;
-volatile bool unused_fix = false;
-
-// this used for force linker to link interrupt handlers
-void NotUsedFunc()
-{
-	NMI_Handler();
-	HardFault_Handler();
-	MemManage_Handler();
-	BusFault_Handler();
-	UsageFault_Handler();
-	DebugMon_Handler();
-	TIM1_UP_TIM10_IRQHandler();
-	USART6_IRQHandler();
-	HAL_UART_RxCpltCallback(NULL);
-}
 
 void LowLevel_Init()
 {
@@ -37,10 +22,7 @@ void LowLevel_Init()
 	// MX_FDCAN1_Init();
 	// MX_SPI1_Init();
 
-	if (unused_fix)
-	{
-		NotUsedFunc();
-	}
+	HalIntprt_Link_Helper();
 }
 
 void LowLevel_Delay(uint32_t delay_ms)
