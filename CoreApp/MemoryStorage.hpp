@@ -1,28 +1,28 @@
 #pragma once
-#include "main.hpp"
-#include "BoardMemory.hpp"
 #include "BoardConfig.hpp"
+#include "BoardMemory.hpp"
 #include "StorableSettings.hpp"
+#include "main.hpp"
 #include <string.h>
 
 template <class TMemory = Board::MemoryType>
 class Memory : public Singleton<Memory<>>
 {
 	public:
-		Memory(Board::MemoryParams_t &MemoryParams = Board::MemoryParams);
+		Memory(Board::MemoryParams_t& MemoryParams = Board::MemoryParams);
 		~Memory();
-		void SetBuff(uint8_t *buff, size_t len);
-		void GetBuff(uint8_t *buff, size_t len);
-		void RestoreSetting(IStorableSetting *Setting);
-		void SaveSetting(IStorableSetting *Setting);
+		void SetBuff(uint8_t* buff, size_t len);
+		void GetBuff(uint8_t* buff, size_t len);
+		void RestoreSetting(IStorableSetting* Setting);
+		void SaveSetting(IStorableSetting* Setting);
 
 	private:
-		TMemory *BoardMemory;
-		bool CheckTagsAndCrc(IStorableSetting *Setting);
+		TMemory* BoardMemory;
+		bool CheckTagsAndCrc(IStorableSetting* Setting);
 };
 
 template <class TMemory>
-Memory<TMemory>::Memory(Board::MemoryParams_t &MemoryParams)
+Memory<TMemory>::Memory(Board::MemoryParams_t& MemoryParams)
 {
 	BoardMemory = new TMemory(MemoryParams);
 }
@@ -34,39 +34,39 @@ Memory<TMemory>::~Memory()
 }
 
 template <class TMemory>
-void Memory<TMemory>::SetBuff(uint8_t *buff, size_t len)
+void Memory<TMemory>::SetBuff(uint8_t* buff, size_t len)
 {
 	BoardMemory->Write(0x1000, buff, len);
 }
 
 template <class TMemory>
-void Memory<TMemory>::GetBuff(uint8_t *buff, size_t len)
+void Memory<TMemory>::GetBuff(uint8_t* buff, size_t len)
 {
 	BoardMemory->Read(0x1000, buff, len);
 }
 
 template <class TMemory>
-void Memory<TMemory>::RestoreSetting(IStorableSetting *Setting)
+void Memory<TMemory>::RestoreSetting(IStorableSetting* Setting)
 {
-	auto Readed = (IStorableSetting*) new uint8_t[Setting->Size];
+	auto Readed = (IStorableSetting*)new uint8_t[Setting->Size];
 	BoardMemory->Read(Setting->StoreAddr, (uint8_t*)Readed, Setting->Size);
 
-	if(this->CheckTagsAndCrc(Readed))
+	if (this->CheckTagsAndCrc(Readed))
 	{
-		memcpy((void*)Setting, (void*)Readed, Setting->Size); //include <string.h> for -fpermissive warning fix
+		memcpy((void*)Setting, (void*)Readed, Setting->Size); // include <string.h> for -fpermissive warning fix
 	}
 
 	delete[] Readed;
 }
 
 template <class TMemory>
-void Memory<TMemory>::SaveSetting(IStorableSetting *Setting)
+void Memory<TMemory>::SaveSetting(IStorableSetting* Setting)
 {
-	auto Readed = (IStorableSetting*) new uint8_t[Setting->Size];
+	auto Readed = (IStorableSetting*)new uint8_t[Setting->Size];
 	BoardMemory->Read(Setting->StoreAddr, (uint8_t*)Readed, sizeof(IStorableSetting));
 
 	auto newWritingTag = 0;
-	if(this->CheckTagsAndCrc(Readed))
+	if (this->CheckTagsAndCrc(Readed))
 	{
 		newWritingTag = Readed->CheckTagBegin;
 	}
@@ -78,11 +78,11 @@ void Memory<TMemory>::SaveSetting(IStorableSetting *Setting)
 }
 
 template <class TMemory>
-bool Memory<TMemory>::CheckTagsAndCrc(IStorableSetting *Setting)
+bool Memory<TMemory>::CheckTagsAndCrc(IStorableSetting* Setting)
 {
-	if(	(Setting->CheckTagBegin == Setting->CheckTagEnd) &&
-		(Setting->CheckTagBegin != BoardMemory->MemoryParams.ErasedVal) &&
-		(Setting->CheckTagBegin != 0x00) && (Setting->CheckTagBegin != 0xff))
+	if ((Setting->CheckTagBegin == Setting->CheckTagEnd) &&
+		(Setting->CheckTagBegin != BoardMemory->MemoryParams.ErasedVal) && (Setting->CheckTagBegin != 0x00) &&
+		(Setting->CheckTagBegin != 0xff))
 	{
 		return true;
 	}
@@ -90,4 +90,4 @@ bool Memory<TMemory>::CheckTagsAndCrc(IStorableSetting *Setting)
 	{
 		return false;
 	}
-}		
+}

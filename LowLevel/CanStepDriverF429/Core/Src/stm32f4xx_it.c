@@ -189,5 +189,9 @@ void USART6_IRQHandler(void)
 }
 
 /* USER CODE BEGIN 1 */
-
+int HalIntprt_Link_Helper(void)
+{
+  static volatile int dummyFlag = 1;
+  return dummyFlag;
+}
 /* USER CODE END 1 */

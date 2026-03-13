@@ -1,10 +1,12 @@
 #include "main.hpp"
-#include "Routines.hpp"
 #include "Board.hpp"
 #include "BoardConfig.hpp"
 #include "BoardInterface.hpp"
 #include "Globals.hpp"
 #include "OS_Wrappers.hpp"
+#include "Routines.hpp"
+#include "etl/map.h"
+#include "etl/string.h"
 #include <atomic>
 #include <cstdio>
 
@@ -20,9 +22,11 @@ int main(void)
 
 	Global.State = GlState::MOVING;
 
-	auto LedTask = new OS::Thread(Led::Routine, Led::Name, Led::Stack, 0, Led::Prio);
-	auto MainTask = new OS::Thread(Main::Routine, Main::Name, Main::Stack, 0, Main::Prio);
-	auto InterfaceTask = new OS::Thread(Interface::Routine, Interface::Name, Interface::Stack, 0, Interface::Prio);
+	etl::map<etl::string<MAX_TASK_NAME_LEN>, OS::Thread*, MAX_TASKS> Tasks;
+
+	Tasks["LedTask"] = new OS::Thread(Led::Routine, Led::Name, Led::Stack, 0, Led::Prio);
+	Tasks["MainTask"] = new OS::Thread(Main::Routine, Main::Name, Main::Stack, 0, Main::Prio);
+	Tasks["InterfaceTask"] = new OS::Thread(Interface::Routine, Interface::Name, Interface::Stack, 0, Interface::Prio);
 
 	OS::Start();
 }
@@ -30,29 +34,29 @@ int main(void)
 [[noreturn]] void Terminate() noexcept
 {
 	// handler for uncatched exceptions
-	Board::IInterface *IFace = Board::InterfaceType::GetInstance();
+	Board::IInterface* IFace = Board::InterfaceType::GetInstance();
 	IFace->Transmit((uint8_t*)"Ex Terminate\n", 8);
 	while (true)
 	{
 		/* code */
 	}
-	
 }
 
 namespace __cxxabiv1
 {
-	std::terminate_handler __terminate_handler = Terminate;
+	// std::terminate_handler __terminate_handler = Terminate;
 }
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
-int _write(int fd, char* ptr, int len)
-{
-	Board::InterfaceType::GetInstance()->Transmit((uint8_t*)ptr, len);
-	return len;
-}
+	int _write(int fd, char* ptr, int len)
+	{
+		Board::InterfaceType::GetInstance()->Transmit((uint8_t*)ptr, len);
+		return len;
+	}
 
 #ifdef __cplusplus
 }

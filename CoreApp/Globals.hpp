@@ -1,6 +1,6 @@
 #pragma once
-#include "main.hpp"
 #include "etl/queue.h"
+#include "main.hpp"
 
 enum class GlState
 {
@@ -19,12 +19,12 @@ class Globals
 		Globals();
 		~Globals();
 
-	GlState& operator=(GlState& state)
-	{
-		this->OldState = this->State;
-		// this->State = state;
-		return state;
-	}
+		GlState& operator=(GlState& state)
+		{
+			this->OldState = this->State;
+			// this->State = state;
+			return state;
+		}
 };
 
 extern Globals Global;
@@ -32,13 +32,14 @@ extern Globals Global;
 enum class GlCmdType
 {
 	NO,
-	LED
+	LED,
+	FLASH
 };
 
 struct GlCmd
 {
-	GlCmdType Type;
-	uint32_t Value;
+		GlCmdType Type;
+		uint32_t Value;
 };
 
 extern etl::queue<GlCmd, 32> GlCmdQueue;

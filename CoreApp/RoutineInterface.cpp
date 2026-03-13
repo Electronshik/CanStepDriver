@@ -1,20 +1,20 @@
-#include "Routines.hpp"
-#include "OS_Wrappers.hpp"
 #include "Board.hpp"
 #include "BoardConfig.hpp"
 #include "BoardInterface.hpp"
 #include "Globals.hpp"
-#include <cstdio>
+#include "OS_Wrappers.hpp"
+#include "Routines.hpp"
 #include "etl/string.h"
+#include <cstdio>
 
 using namespace Board;
 
-void Routines::Interface::Routine(void *pvParameters)
+void Routines::Interface::Routine(void* pvParameters)
 {
 	OS::Delay(100);
 
 	uint8_t nl = '\n';
-	IInterface *IFace = InterfaceType::GetInstance();
+	IInterface* IFace = InterfaceType::GetInstance();
 	IFace->Transmit((uint8_t*)GenSettings.str, strlen(GenSettings.str));
 	IFace->Transmit(&nl, 1);
 
@@ -23,7 +23,7 @@ void Routines::Interface::Routine(void *pvParameters)
 
 	etl::string<IFace->ReceiveBuffSize> ReceivedString;
 
-	for(;;)
+	for (;;)
 	{
 		if (!IFace->ReceiveBuffer.empty())
 		{
@@ -32,7 +32,7 @@ void Routines::Interface::Routine(void *pvParameters)
 
 			if (IFace->ReceiveBuffMutex.try_lock())
 			{
-				ReceivedString.assign(IFace->ReceiveBuffer.begin(), IFace->ReceiveBuffer.end());
+				// ReceivedString.assign(IFace->ReceiveBuffer.begin(), IFace->ReceiveBuffer.end());
 				IFace->ReceiveBuffer.clear();
 				IFace->ReceiveBuffMutex.unlock();
 				printf("%s", ReceivedString.c_str());
@@ -53,6 +53,11 @@ void Routines::Interface::Routine(void *pvParameters)
 			{
 				cmd.Type = GlCmdType::LED;
 				cmd.Value = 3;
+			}
+			else if (ReceivedString.compare("4") == 0)
+			{
+				cmd.Type = GlCmdType::FLASH;
+				cmd.Value = 1;
 			}
 
 			if (cmd.Type != GlCmdType::NO)
